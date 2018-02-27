@@ -47,7 +47,3 @@ print(print_string)
 
 
 #R BF 4s 6s SR % of Total
-
-
-
-
