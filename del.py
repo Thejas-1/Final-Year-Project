@@ -10,12 +10,12 @@ sys.setdefaultencoding('utf-8')
 #<a class="LinkOff"
 
 
-Soup = BeautifulSoup(open("page.html"), "html.parser")
+#Soup = BeautifulSoup(open("page.html"), "html.parser")
 #print Soup
 
-#url = "http://www.howstat.com/cricket/Statistics/Matches/MatchScorecard_ODI.asp?MatchCode=4135"
-#Scorecard = requests.get(url).text
-#Soup = BeautifulSoup(Scorecard, "html.parser")
+url = "http://www.howstat.com/cricket/Statistics/Matches/MatchScorecard_ODI.asp?MatchCode=3878"
+Scorecard = requests.get(url).text
+Soup = BeautifulSoup(Scorecard, "html.parser")
 
 match_name = Soup.find('a',class_="LinkBlack2").get_text()
 match_name=match_name.strip()
@@ -25,14 +25,22 @@ match_name=match_name.strip()
 match_date = Soup.find('td',class_="TextBlack8").get_text()
 match_date=match_date.strip()
 #print("Match Date :" + match_date)
-x=Soup.find('td',class_="TextBlack8").find_all_next("td")
+x=Soup.find('a',class_="LinkOff").find_all_next("td")
 
 j=1
 #for i in x:
 	#print(i.get_text().strip()) #To CSV file
 
-print_string = ""
+productDivs = Soup.findAll('a', attrs={'class' : 'LinkOff'})
+for div in productDivs:
+	if "PlayerOverview" in str(div):
+		print(div.get_text().strip())
 
+
+#print_string = ""
+
+
+'''
 name=[]
 run=[]
 ball=[]
@@ -117,6 +125,6 @@ with open('example2.csv', 'w') as csvfile:
     while i<11:
     	writer.writerow({'player_name': name[i], 'runs_scored': run[i], 'balls_faced': ball[i], 'fours': four[i], 'sixes': six[i], 'strike_rate': sr[i]})
     	i=i+1
-
+'''
 
 
